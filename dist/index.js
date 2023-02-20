@@ -44,8 +44,9 @@ function Logger(options) {
 Logger.prototype.log = function() {
   const self = this;
 
-  self.logMessage('log', ...arguments);
+  self.logMessage('info', ...arguments);
 };
+Logger.prototype.info = Logger.log;
 
 Logger.prototype.warn = function() {
   const self = this;
