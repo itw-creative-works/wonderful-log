@@ -1,6 +1,6 @@
 {
   "name": "wonderful-log",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A wrapper around fetch.",
   "main": "./dist/index.js",
   "scripts": {

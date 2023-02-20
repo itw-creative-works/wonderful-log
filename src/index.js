@@ -22,7 +22,7 @@ function Logger(options) {
   self.options = options;
 
   // define the filename for the log file
-  const logFile = `${new Date().toISOString().replace(/:/g, '_').slice(0, -5)}.log`;
+  const logFile = `${new Date().toISOString().replace(/:/g, '-').slice(0, -5)}-${Math.random().toString().slice(2, 6)}.log`;
   self.fullLogPath = path.join(self.options.file.path, logFile);
 
   // create the logs directory if it does not exist
@@ -37,7 +37,8 @@ function Logger(options) {
     // listen for the exit event on the main process
     process.on('exit', () => {
       self.worker.terminate();
-    });    
+      self.worker = null;
+    });
   }
 }
 
@@ -79,6 +80,8 @@ Logger.prototype.logMessage = function() {
   // start the worker thread
   self.startWorker();
 
+  // console.log('---self.worker', self.worker)
+
   // log to file if enabled
   if (self.options.file.enabled) {
     self.worker.postMessage(formattedMessage);
@@ -90,7 +93,6 @@ Logger.prototype.startWorker = function() {
 
   // if worker already exists, reset the timeout and return
   if (self.worker) {
-    // self.worker.terminate();
     return self.startWorkerTimeout();
   }
 
@@ -112,6 +114,7 @@ Logger.prototype.startWorkerTimeout = function() {
   clearTimeout(self.workerTimeout);
   self.workerTimeout = setTimeout(() => {
     self.worker.terminate();
+    self.worker = null;
   }, self.options.worker.timeout);
 };
 
