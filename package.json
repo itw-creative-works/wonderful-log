@@ -1,7 +1,7 @@
 {
   "name": "wonderful-log",
-  "version": "1.0.1",
-  "description": "A wrapper around fetch.",
+  "version": "1.0.3",
+  "description": "An improved logging system for Node.js",
   "main": "./dist/index.js",
   "scripts": {
     "test": "npm run prepare && ./node_modules/mocha/bin/mocha test/ --recursive --timeout=10000",
@@ -26,6 +26,6 @@
   "runkitExampleFilename": "examples/process.js",
   "devDependencies": {
     "mocha": "^8.4.0",
-    "prepare-package": "^0.0.16"
+    "prepare-package": "^1.0.0"
   }
 }
