@@ -1,6 +1,6 @@
 {
   "name": "wonderful-log",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "An improved logging system for Node.js",
   "main": "./dist/index.js",
   "scripts": {

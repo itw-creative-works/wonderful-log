@@ -160,5 +160,13 @@ Logger.prototype.clean = function() {
   });
 }
 
+// Get full log file
+Logger.prototype.getLogs = function() {
+  const self = this;
+
+  // get the full log file
+  return fs.readFileSync(self.fullLogPath, 'utf8');
+}
+
 // export the Logger function for use in other modules
 module.exports = Logger;
