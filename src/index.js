@@ -10,19 +10,24 @@ function Logger(options) {
 
   options.console = options.console || {};
   options.console.enabled = typeof options.console.enabled === 'undefined' ? true : options.console.enabled;
-  
+
   options.file = options.file || {};
   options.file.enabled = typeof options.file.enabled === 'undefined' ? true : options.file.enabled;
   options.file.path = options.file.path || './logs';
-  
+  options.file.date = options.file.date || new Date();
+
   options.worker = options.worker || {};
   options.worker.timeout = typeof options.worker.timeout === 'undefined' ? 10000 : options.worker.timeout;
+
+  options.clean = options.clean || {};
+  options.clean.enabled = typeof options.clean.enabled === 'undefined' ? true : options.clean.enabled;
+  options.clean.days = options.clean.days || 7;
 
   // save options
   self.options = options;
 
   // define the filename for the log file
-  const logFile = `${new Date().toISOString().replace(/:/g, '-').slice(0, -5)}-${Math.random().toString().slice(2, 6)}.log`;
+  const logFile = `${new Date(options.file.date).toISOString().replace(/:/g, '-').slice(0, -5)}-${Math.random().toString().slice(2, 6)}.log`;
   self.fullLogPath = path.join(self.options.file.path, logFile);
 
   // create the logs directory if it does not exist
@@ -36,9 +41,13 @@ function Logger(options) {
 
     // listen for the exit event on the main process
     process.on('exit', () => {
-      self.worker.terminate();
-      self.worker = null;
+      self.stopWorker();
     });
+  }
+
+  // clean up old log files
+  if (self.options.clean.enabled) {
+    self.clean();
   }
 }
 
@@ -106,17 +115,50 @@ Logger.prototype.startWorker = function() {
   self.startWorkerTimeout();
 };
 
-// // start worker timeout
+Logger.prototype.stopWorker = function() {
+  const self = this;
+
+  // clear the worker timeout
+  clearTimeout(self.workerTimeout);
+
+  // terminate the worker thread
+  if (self.worker) {
+    self.worker.terminate();
+    self.worker = null;
+  }
+};
+
+// start worker timeout
 Logger.prototype.startWorkerTimeout = function() {
   const self = this;
 
   // set a timeout of 10 seconds to close the worker thread
   clearTimeout(self.workerTimeout);
   self.workerTimeout = setTimeout(() => {
-    self.worker.terminate();
-    self.worker = null;
+    self.stopWorker();
   }, self.options.worker.timeout);
 };
+
+Logger.prototype.clean = function() {
+  const self = this;
+
+  // get the current date
+  const currentDate = new Date();
+  // get the date from the number of days to keep logs
+  const dateToKeep = new Date(currentDate.setDate(currentDate.getDate() - self.options.clean.days));
+
+  // get a list of all files in the logs directory
+  const files = fs.readdirSync(self.options.file.path);
+
+  // loop through each file
+  files.forEach((file) => {
+    const fileDate = new Date(file.split('T')[0]);
+    // if the file date is older than the date to keep, delete the file
+    if (fileDate < dateToKeep) {
+      fs.unlinkSync(path.join(self.options.file.path, file));
+    }
+  });
+}
 
 // export the Logger function for use in other modules
 module.exports = Logger;

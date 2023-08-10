@@ -1,6 +1,6 @@
 {
   "name": "wonderful-log",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "An improved logging system for Node.js",
   "main": "./dist/index.js",
   "scripts": {
@@ -26,6 +26,7 @@
   "runkitExampleFilename": "examples/process.js",
   "devDependencies": {
     "mocha": "^8.4.0",
+    "node-powertools": "^1.0.6",
     "prepare-package": "^1.0.0"
   }
 }
