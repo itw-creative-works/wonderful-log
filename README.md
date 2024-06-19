@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://cdn.itwcreativeworks.com/assets/itw-creative-works/images/logo/itw-creative-works-brandmark-black-x.svg">
+  <a href="https://itwcreativeworks.com">
     <img src="https://cdn.itwcreativeworks.com/assets/itw-creative-works/images/logo/itw-creative-works-brandmark-black-x.svg" width="100px">
   </a>
 </p>
@@ -30,11 +30,11 @@
   <br>
 </p>
 
-## Features
+## 🦄 Features
 * Log to the console AND to a file!?
 
-## Install Wonderful Log
-### Install via npm
+## 📦 Install Wonderful Log
+### Option 1: Install via npm
 Install with npm if you plan to use `wonderful-log` in a Node project or in the browser.
 ```shell
 npm install wonderful-log
@@ -56,7 +56,7 @@ const logger = new Logger({
 });
 ```
 
-## Using Wonderful Log
+## ⚡️ Using Wonderful Log
 After you have followed the install step, you can start using `wonderful-log` to make requests to any URL.
 
 ### log(...arguments)
@@ -68,16 +68,15 @@ The `warn()` method will warn the arguments to the console and to the file.
 ### error(...arguments)
 The `error()` method will error the arguments to the console and to the file.
 
-## Extending Capabilities
-For a more in-depth documentation of this library and the Wonderful Log service, please visit the official Wonderful Log website.
-
-## What Can Wonderful Log do?
+## 📝 What Can Wonderful Log do?
 Wonderful Log is a free log api that helps you make better logs in your application.
 
-## Final Words
+For a more in-depth documentation of this library and the Wonderful Log service, please visit the official Wonderful Log website.
+
+## 🗨️ Final Words
 If you are still having difficulty, we would love for you to post a question to [the Wonderful Log issues page](https://github.com/itw-creative-works/wonderful-log/issues). It is much easier to answer questions that include your code and relevant files! So if you can provide them, we'd be extremely grateful (and more likely to help you find the answer!)
 
-## Projects Using this Library
+## 📚 Projects Using this Library
 [Somiibo](https://somiibo.com/): A Social Media Bot with an open-source module library. <br>
 [JekyllUp](https://jekyllup.com/): A website devoted to sharing the best Jekyll themes. <br>
 [Slapform](https://slapform.com/): A backend processor for your HTML forms on static sites. <br>
